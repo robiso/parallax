@@ -1,0 +1,397 @@
+/*
+ *  WonderCMS 2.* Parallax Theme
+ *  by Stephan Stanisic
+ *
+ *  This is my first theme I've build, ever. Most times I
+ *  just grap a theme from my friends at pixelarity.com
+ *  They make awesome themes, and you get them all for
+ *  a small monthly substription.
+ *  They also have a Creative Commons Licenced version of
+ *  some of their work available at html5up.net. Just wanted
+ *  to give these guys some credit.
+ *
+ *  Anyhow, do be to picky here. Most of this has been put
+ *  together without planning.
+ */
+
+
+/* Some resets */
+
+    *:focus {
+        outline: none;
+    }
+
+    body {
+        font-family: "Lato", sans-serif;
+    }
+
+    .row {
+        /* Stupid bootstrap */
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .navbar-default {
+        background: transparent;
+        border: 0;
+        margin: 0;
+        position: absolute;
+    }
+
+
+
+/* Navigation */
+
+    nav.navbar-default , #adminPanel {
+        position: absolute;
+        top: 0;
+
+        height: auto;
+        padding: 1em 2em;
+
+        transition: margin 1s;
+    }
+
+    nav.navbar-default  {
+        width: 100%;
+        z-index: 1;
+    }
+
+    /* Quick hack for higher priority */
+    body #adminPanel {
+        right: 0;
+
+        width: 15em;
+
+        background: transparent;
+    }
+
+    .navbar-default .navbar-nav > .active > a,
+    .navbar-default .navbar-nav > .active > a:focus,
+    .navbar-default .navbar-nav > .active > a:hover {
+        background: transparent;
+        color: #fff;
+        border-bottom: 1px solid #fff;
+    }
+
+    /* Make the nav panel shorter when logged in  */
+    /* This to make space for the settings button */
+    #adminPanel + nav {
+        width: calc(100% - 15em);
+    }
+    #adminPanel + nav.sticky {
+        width: 100%;
+    }
+
+    nav.sticky {
+        position: fixed;
+
+        width: 100%;
+
+        animation: animatetop 0.4s;
+
+        background: #37474F;
+    }
+
+    nav:not(.sticky) .container {
+        width: 100%;
+    }
+
+    nav:not(.sticky) .nav > li > a,
+    nav:not(.sticky) .navbar-brand {
+        text-shadow: 0 0 1em #000;
+    }
+
+    nav.navbar-default .navbar-brand {
+        color: #fff;
+
+        font-size: 1.5em;
+    }
+
+    .navbar-default .nav > li > a {
+        color: #fff;
+        border-bottom: 1px solid transparent;
+    }
+
+    .navbar-default .nav > li > a:focus,
+    .navbar-default .nav > li > a:hover {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+
+        /* Stupid bootstrap */
+        background: transparent;
+    }
+
+    .navbar-default .navbar-toggle {
+        border-color: transparent;
+        position: fixed;
+        right: 1em;
+        z-index: 999999999;
+        filter: drop-shadow(0 0 2px #000);
+    }
+
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #fff;
+    }
+
+    .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+        background-color: rgba(0,0,0,0);
+    }
+
+    .navbar-collapse.collapse.in,
+    .navbar-collapse.collapsing {
+        opacity: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: rgba(0,0,0,0.9);
+        text-align: center;
+        display: flex;
+        border: 0;
+    }
+
+    .navbar-collapse.collapse.in ul.nav.navbar-nav.navbar-right,
+    .navbar-collapse.collapsing ul.nav.navbar-nav.navbar-right {
+        margin: auto;
+        font-size: 1.2em;
+    }
+
+    .navbar-collapse.collapse.in .nav>li,
+    .navbar-collapse.collapsing .nav>li {
+        margin: 2em;
+        min-width: 30vw;
+    }
+
+    .navbar-collapse.collapse.in .nav>li.active a,
+    .navbar-collapse.collapsing .nav>li.active a {
+        border-bottom: 0;
+    }
+
+    .navbar-collapse.collapse.in ul.nav.navbar-nav.navbar-right:before,
+    .navbar-collapse.collapsing ul.nav.navbar-nav.navbar-right:before {
+        content: "Menu";
+        display: block;
+        font-size: 1.2em;
+        border-bottom: 1px solid #fff;
+        padding-bottom: 1em;
+        color: #fff;
+    }
+
+    div#bs-example-navbar-collapse-1 {
+        transition: opacity 0.5s, height 0.5s;
+        opacity: 1;
+    }
+
+    div#bs-example-navbar-collapse-1.navbar-collapse.collapsing {
+        opacity: 0;
+        height: 0 !important;
+    }
+
+    button.navbar-toggle {
+        transition: 1s;
+    }
+    button.navbar-toggle .icon-bar {
+        transition: 0.5s;
+    }
+
+    button.navbar-toggle:not(.collapsed) .icon-bar:nth-child(1) {
+        transform: rotate(-45deg);
+        display: block;
+        position: relative;
+    }
+
+    .navbar-toggle:not(.collapsed) > span.icon-bar:nth-child(2) {
+        transform: rotate(45deg) translateX(25%) translateY(200%);
+    }
+
+    .navbar-toggle:not(.collapsed) > span.icon-bar:nth-child(4) {
+        transform: rotate(-45deg) translateX(20%) translateY(-150%);
+    }
+
+    .navbar-toggle:not(.collapsed) > span.icon-bar:nth-child(3) {
+        opacity: 0;
+    }
+
+    #adminPanel > .padding20 {
+        padding: 15px;
+        position: relative;
+        z-index: 1;
+    }
+
+    #adminPanel > .text-right {
+        text-align: left;
+    }
+
+    #adminPanel > .text-right a {
+        padding: 15px 15px 15px 0;
+
+        color: #fff;
+        text-shadow: 0 0 1em #000;
+    }
+
+    /* Make sure that the admin modal still sits on top */
+
+    .modal, .alert {
+        z-index: 500000;
+    }
+
+    .modal-dialog {
+        margin-top: 100px;
+    }
+
+
+
+/* Header */
+
+    .parallax-wrapper {
+        overflow-y: hidden;
+    }
+
+    .parallax {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        height: 100vh;
+        min-height: 600px;
+        max-height: 100vh;
+
+        text-align: center;
+
+        background-position: center;
+        background-size: cover;
+        text-shadow: 0 0 1em #000;
+    }
+
+    .parallax .inner {
+        display: inline-block;
+
+        margin: auto;
+        padding: 5em;
+
+        background: rgba(0, 0, 0, 0.6);
+    }
+    .parallax .inner h1,
+    .parallax .inner p ,
+    .parallax .inner .note-editable {
+        margin: 0;
+
+        color: #fff;
+    }
+
+    .parallax .inner h1 {
+        text-transform: uppercase;
+
+        font-size: 3em;
+        font-weight: 300;
+        line-height: 2;
+    }
+    .parallax .inner h1:after {
+        display: block;
+
+        width: 150px;
+        height: 2px;
+        margin: 0.2em auto 0.7em auto;
+
+        content: "";
+
+        background: #fff;
+    }
+
+
+    .parallax .inner p,
+    .parallax .inner .note-editable {
+        font-size: 1.2em;
+        line-height: 2;
+    }
+
+    .parallax .scrolly {
+        position: absolute;
+        bottom: 1em;
+        left: 50%;
+
+        display: block;
+
+        transform: translateX(-50%);
+
+        color: #fff;
+
+        font-size: 1.2em;
+
+        tetx-decoration: none;
+    }
+
+    .parallax .scrolly svg {
+        height: 1.2em;
+        margin-top: 1em;
+        filter: drop-shadow(0px 0px 5px #000);
+    }
+
+
+
+/* Content */
+
+    #content {
+        padding: 10em 0;
+    }
+
+
+
+/* Elements */
+
+    h1 {
+        color: #37474F;
+    }
+
+    h3 {
+        color: #636363;
+    }
+
+    hr {
+        width: 50px;
+        margin: 2em auto;
+
+        border: 1px solid rgba(0,0,0,0.2);
+    }
+
+
+
+/* Call to action */
+
+    .CTA {
+        padding: 5em 0;
+
+        color: #fff;
+        background: #37474F;
+    }
+
+    .CTA h3,
+    .CTA a {
+        color: #fff;
+    }
+
+    .CTA a:hover {
+        text-decoration: none;
+        border-bottom: 1px solid #fff;
+    }
+
+
+
+/* Animations */
+
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0;
+        }
+        to {
+            top: 0;
+            opacity: 1;
+        }
+    }
