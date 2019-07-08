@@ -6,3 +6,5 @@ This is just a test of mine. Use at your own risk. Works best with a floating su
 Demo: https://www.wonder.stanisic.nl
 
 The sample-database.js contains the same HTML from the demo website. Uses /loginURL as login url and 'admin' as password.
+
+Feedback? Send me an email via stephan![@](https://i.imgur.com/XqBGE1c.jpg)stanisic.nl. Pull requests are also more than welcome!
