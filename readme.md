@@ -1,5 +1,6 @@
 # Parallax theme
-_for WonderCMS 2.x.x_
+![](https://badgen.net/github/release/StephanStanisic/theme-parallax)
+![](https://badgen.net/badge/WonderCMS/2.7.0/green)
 
 This is just a test of mine. Use at your own risk. Works best with a floating summernote editor.
 
