@@ -3,7 +3,7 @@ _for WonderCMS 2.x.x_
 
 This is just a test of mine. Use at your own risk. Works best with a floating summernote editor.
 
-![Imgur](https://i.imgur.com/SwqBRmo.png)
+![Imgur](https://i.imgur.com/RMiGtDN.png)
 
 Demo: https://www.wonder.stanisic.nl
 
