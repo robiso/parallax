@@ -38,6 +38,10 @@
         position: absolute;
     }
 
+    img {
+        max-width: 100%;
+    }
+
 
 
 /* Navigation */
@@ -87,6 +91,7 @@
         position: fixed;
 
         width: 100%;
+        border-radius: 0;
 
         animation: animatetop 0.4s;
 
@@ -106,6 +111,10 @@
         color: #fff;
 
         font-size: 1.5em;
+    }
+
+    .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+        color: #fff;
     }
 
     .navbar-default .nav > li > a {
@@ -279,7 +288,8 @@
     }
     .parallax .inner h1,
     .parallax .inner p ,
-    .parallax .inner .note-editable {
+    .parallax .inner .note-editable,
+    .parallax .inner .editText {
         margin: 0;
 
         color: #fff;

@@ -6,7 +6,7 @@ function alterAdmin($args) {
     if(!wCMS::$loggedIn) return $args;
 
     $doc = new DOMDocument();
-    $doc->loadHTML($args[0]);
+    @$doc->loadHTML($args[0]);
 
     $label = $doc->createElement("p");
     $label->setAttribute("class", "subTitle");
