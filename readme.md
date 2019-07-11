@@ -1,6 +1,6 @@
 # Parallax theme
 ![](https://badgen.net/github/release/StephanStanisic/theme-parallax)
-![](https://badgen.net/badge/WonderCMS/2.7.0/green)
+![](https://badgen.net/badge/WonderCMS/3.0.0/green)
 
 This is just a test of mine. Use at your own risk. Works best with a [floating summernote](https://www.wondercms.com/forum/viewtopic.php?f=23&t=1252) editor.
 
@@ -13,7 +13,6 @@ Demo: https://www.wonder.stanisic.nl
 1. Login to your website.
 1. Go to Settings >> Themes & Plugins.
 1. Select `Theme` and paste the following url in the input field:
-   ```https://github.com/StephanStanisic/theme-parallax/releases/download/0.0.1/theme-parallax.zip```
 1. Enable the theme in the General section. 
 
 ## Sample data
