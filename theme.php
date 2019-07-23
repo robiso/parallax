@@ -2,88 +2,37 @@
 
 global $Wcms;
 
-$current_page = $Wcms->slugify($Wcms->page('title'));
-
-function alterAdmin($args) {
-    global $Wcms;
-
-    if(!$Wcms->loggedIn) return $args;
-
-    $doc = new DOMDocument();
-    @$doc->loadHTML($args[0]);
-
-    $label = $doc->createElement("p");
-    $label->setAttribute("class", "subTitle");
-    $label->nodeValue = "Header height (in %)";
-
-    $doc->getElementById("currentPage")->insertBefore($label, $doc->getElementById("currentPage")->lastChild);
-
-    $wrapper = $doc->createElement("div");
-    $wrapper->setAttribute("class", "change");
-
-    $input = $doc->createElement("div");
-    $input->setAttribute("class", "editText");
-    $input->setAttribute("data-target", "pages");
-    $input->setAttribute("id", "themeHeaderHeight");
-    $input->nodeValue = isset($Wcms->get('pages', $Wcms->slugify($Wcms->page('title')))->themeHeaderHeight) ? $Wcms->get('pages', $Wcms->slugify($Wcms->page('title')))->themeHeaderHeight : "100vh";
-
-    $wrapper->appendChild($input);
-
-    $doc->getElementById("currentPage")->insertBefore($wrapper, $doc->getElementById("currentPage")->lastChild);
-
-    $args[0] = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $doc->saveHTML());
-    return $args;
-}
-$Wcms->addListener('settings', 'alterAdmin');
-
 $page_image = $Wcms->asset('images/default.jpg');
+$heading = $Wcms->page('title');
 
-// Check if image for this page exisis
-$files = glob("{$Wcms->filesPath}/*");
-foreach($files as $file) {
-	$filename = pathinfo($file, PATHINFO_FILENAME);
-	if($filename == $current_page) {
-		$page_image = "data/files/" . basename($file);
-		break;
-	}
-}
+$height = 100;
+$subtitle = "";
+$type = "";
+$readMore = "";
 
-
-function getEditableArea($name, $default) {
-    global $Wcms;
-	$block = $Wcms->slugify($Wcms->page('title')) . "_" . $name;
-
-	// Check if the newEditableArea area is already exists, if not, create it
-	$value = null;
-	if (empty($Wcms->get('blocks',$block))) {
-		$Wcms->set('blocks',$block, 'content', $default);
-	} else {
-		$value = $Wcms->get('blocks',$block,'content');
-	}
-	if ($Wcms->loggedIn) {
-        if($value == null) return "<script>history.go(0)</script>";
-
-		return $Wcms->block($block);
-	}
-
-	// If not logged in, return block in non-editable mode
-	return $value;
-}
-
-$height = isset($Wcms->get('pages', $current_page)->themeHeaderHeight) ? $Wcms->get('pages', $current_page)->themeHeaderHeight : "100";
-
-$heading = getEditableArea("heading", $Wcms->page('title'));
-$subtitle = getEditableArea("subtitle", $Wcms->page('description'));
-
-if($current_page == 'login')
+if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 	$subtitle = $Wcms->page('content');
+} else {
+    // Check if image for this page exisis
+    if(isset($Wcms->get("pages", $Wcms->currentPage)->background) && $Wcms->get("pages", $Wcms->currentPage)->background != "") {
+        $page_image = "data/files/" . $Wcms->get("pages", $Wcms->currentPage)->background;
+    }
+
+    $height = isset($Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight) ? $Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight : 100;
+
+    $heading = getEditableArea("heading", $Wcms->page('title'));
+    $subtitle = getEditableArea("subtitle", "");
+
+    $type = isset($Wcms->get('pages', $Wcms->currentPage)->parallax) ? $Wcms->get('pages', $Wcms->currentPage)->parallax : "dual";
+    $readMore = isset($Wcms->get('pages', $Wcms->currentPage)->readMoreText) ? $Wcms->get('pages', $Wcms->currentPage)->readMoreText : "Read more";
+}
 
 ?>
+<!DOCTYPE html>
 <!--
-	WonderCMS 2.* Parallax Theme
+	WonderCMS 3.0.0 Parallax Theme
 	by Stephan Stanisic
 -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -96,21 +45,16 @@ if($current_page == 'login')
 	<link rel="stylesheet" href="<?=$Wcms->asset('css/style.css')?>">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400&display=swap" rel="stylesheet">
 	<?=$Wcms->css()?>
-	<?php /* Translate php to some javascript variables and css rules. Please don't replicate this. */ ?>
-	<script>
-	var page = <?=json_encode($current_page)?>;
-	var heading = <?=json_encode($heading)?>;
-	var subtitle = <?=json_encode($subtitle)?>;
-	var image = <?=json_encode($page_image)?>;
-	var height = <?=json_encode($height)?>;
-	</script>
-	<style> .parallax { height: <?=$height?>vh; } </style>
+
+	<?php /* Tr    anslate php to some javascript variables and css rules. Please don't replicate this. */ ?>
+	<script>var page=<?=json_encode($Wcms->currentPage)?>,heading=<?=json_encode($heading)?>,subtitle=<?=json_encode($subtitle)?>,image=<?=json_encode($page_image)?>,height=<?=json_encode($height)?>,type=<?=json_encode($type)?>,loggedIn=<?=json_encode($Wcms->loggedIn)?>;</script>
+	<style>.parallax{height:<?=htmlentities($height)?>vh;}</style>
 </head>
 <body>
 	<?=$Wcms->alerts()?>
 	<?=$Wcms->settings()?>
 
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default<?php if($height == 0)echo " background"; if(!$Wcms->loggedIn && $height == 0)echo " sticky no-animation"; ?>">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -131,16 +75,24 @@ if($current_page == 'login')
 		</div>
 	</nav>
 
+    <?php if($height != 0): ?>
+
     <header class="parallax-wrapper">
         <div class="parallax" style='background-image: url(<?=json_encode($page_image)?>);'>
             <div class="inner">
                 <h1><?= $heading ?></h1>
                 <?= $Wcms->loggedIn ? $subtitle : "<p>$subtitle</p>" ?>
             </div>
-			<a href="#content" class="scrolly">Read more<br>
+            <?php if($readMore): ?>
+			<a href="#content" class="scrolly"><?=$readMore?><br>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M119.5 262.9L3.5 145.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 223.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 263c-4.7 4.6-12.3 4.6-17-.1zm17 128l116-117.8c4.7-4.7 4.7-12.3 0-17l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L128 351.3 27.6 249.1c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l116 117.8c4.7 4.6 12.3 4.6 17-.1z" fill="#ffffff"/></svg></a>
+            <?php endif; ?>
         </div>
     </header>
+
+    <?php endif; ?>
+
+    <?php if($Wcms->currentPage != $Wcms->get('config', 'login')): ?>
 
 	<div class="container" id="content">
 		<div class="row">
@@ -153,9 +105,14 @@ if($current_page == 'login')
 	<div class="container-fluid CTA">
 			<div class="text-center padding40">
 				<?=$Wcms->block('subside')?>
-
 			</div>
 	</div>
+
+    <?php else: ?>
+
+    <style>.parallax .scrolly { display: none }</style>
+
+    <?php endif; ?>
 
 	<footer class="container-fluid">
 		<div class="text-center padding20">
@@ -169,5 +126,8 @@ if($current_page == 'login')
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 	<?=$Wcms->js()?>
     <script src="<?=$Wcms->asset('js/script.js')?>"></script>
+
+    <?php /* Add some overwrites for pages with different parallax types. */ ?>
+    <?php if($type == "scroll") echo "<style>.parallax{background-attachment:fixed;}</style>"; ?>
 </body>
 </html>

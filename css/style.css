@@ -1,5 +1,5 @@
 /*
- *  WonderCMS 2.* Parallax Theme
+ *  WonderCMS 3.0.0 Parallax Theme
  *  by Stephan Stanisic
  *
  *  This is my first theme I've build, ever. Most times I
@@ -10,7 +10,7 @@
  *  some of their work available at html5up.net. Just wanted
  *  to give these guys some credit.
  *
- *  Anyhow, do be to picky here. Most of this has been put
+ *  Anyhow, don't be too picky here. Most of this has been put
  *  together without planning.
  */
 
@@ -66,6 +66,7 @@
         right: 0;
 
         width: 15em;
+        z-index: 1050;
 
         background: transparent;
     }
@@ -94,6 +95,30 @@
         border-radius: 0;
 
         animation: animatetop 0.4s;
+
+        background: #37474F;
+    }
+
+    nav.background {
+        background: #37474F;
+        border-radius: 0;
+        position: relative;
+    }
+
+
+    nav.no-animation {
+        animation: none;
+    }
+
+    nav.background:after {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        right: -15em;
+
+        width: 15em;
+        height: 5.7em;
 
         background: #37474F;
     }
@@ -231,6 +256,10 @@
         z-index: 1;
     }
 
+    .modal-open #adminPanel > .padding20 {
+        opacity: 0.5;
+    }
+
     #adminPanel > .text-right {
         text-align: left;
     }
@@ -285,6 +314,7 @@
         padding: 5em;
 
         background: rgba(0, 0, 0, 0.6);
+        z-index: 1;
     }
     .parallax .inner h1,
     .parallax .inner p ,
