@@ -46,7 +46,7 @@ if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400&display=swap" rel="stylesheet">
 	<?=$Wcms->css()?>
 
-	<?php /* Tr    anslate php to some javascript variables and css rules. Please don't replicate this. */ ?>
+	<?php /* Translate php to some javascript variables and css rules. Please don't replicate this. */ ?>
 	<script>var page=<?=json_encode($Wcms->currentPage)?>,heading=<?=json_encode($heading)?>,subtitle=<?=json_encode($subtitle)?>,image=<?=json_encode($page_image)?>,height=<?=json_encode($height)?>,type=<?=json_encode($type)?>,loggedIn=<?=json_encode($Wcms->loggedIn)?>;</script>
 	<style>.parallax{height:<?=htmlentities($height)?>vh;}</style>
 </head>
@@ -129,5 +129,6 @@ if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 
     <?php /* Add some overwrites for pages with different parallax types. */ ?>
     <?php if($type == "scroll") echo "<style>.parallax{background-attachment:fixed;}</style>"; ?>
+    <?php if($height == 100) echo "<style>.parallax{padding-top:0;}</style>"; ?>
 </body>
 </html>

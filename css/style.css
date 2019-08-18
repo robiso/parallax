@@ -58,7 +58,7 @@
 
     nav.navbar-default  {
         width: 100%;
-        z-index: 1;
+        z-index: 2;
     }
 
     /* Quick hack for higher priority */
@@ -297,8 +297,9 @@
         justify-content: center;
 
         height: 100vh;
-        min-height: 600px;
+        min-height: 37em;
         max-height: 100vh;
+        padding-top: 5em;
 
         text-align: center;
 
