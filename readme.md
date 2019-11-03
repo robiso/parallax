@@ -2,22 +2,20 @@
 ![](https://badgen.net/github/release/StephanStanisic/theme-parallax)
 ![](https://badgen.net/badge/WonderCMS/3.0.0/green)
 
-This is just a test of mine. Use at your own risk. Works best with a [floating summernote](https://www.wondercms.com/forum/viewtopic.php?f=23&t=1252) editor.
-
-![Imgur](https://i.imgur.com/RMiGtDN.png)
+## Author: Stephan Stanisic
 
 Demo: https://www.wonder.stanisic.nl
 
-## How to install
+## Preview
+![Theme preview](/preview.jpg)
+![Theme preview](https://i.imgur.com/RMiGtDN.png)
 
-1. Login to your website.
-1. Go to Settings >> Themes & Plugins.
-1. Select `Theme` and paste the following url in the input field:
-1. Enable the theme in the General section. 
 
-## Sample data
-
-The sample-database.js contains the same HTML from the demo website. Uses /loginURL as login url and 'admin' as password.
+## How to use
+1. Login to your WonderCMS website.
+2. Click "Settings" and click "Themes".
+3. Find theme in the list and click "install".
+4. In the "General" tab, select theme to activate it.
 
 ## Features
 
@@ -33,3 +31,6 @@ home.png gets used as the homepage background
 example.webp gets used as the background for the page `/example`
 
 Feedback? Send me an email via stephan![@](https://i.imgur.com/XqBGE1c.jpg)stanisic.nl. Pull requests are also more than welcome!
+
+## Developer notes
+This is just a test of mine. Use at your own risk. Works best with a [floating summernote](https://www.wondercms.com/forum/viewtopic.php?f=23&t=1252) editor.
