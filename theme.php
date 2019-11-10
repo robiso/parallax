@@ -51,8 +51,8 @@ if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 	<style>.parallax{height:<?=htmlentities($height)?>vh;}</style>
 </head>
 <body>
-	<?=$Wcms->alerts()?>
-	<?=$Wcms->settings()?>
+        <?= $Wcms->settings() ?>
+        <?= $Wcms->alerts() ?>
 
 	<nav class="navbar navbar-default<?php if($height == 0)echo " background"; if(!$Wcms->loggedIn && $height == 0)echo " sticky no-animation"; ?>">
 		<div class="container">
