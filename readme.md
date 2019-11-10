@@ -8,8 +8,6 @@ Demo: https://www.wonder.stanisic.nl
 
 ## Preview
 ![Theme preview](/preview.jpg)
-![Theme preview](https://i.imgur.com/RMiGtDN.png)
-
 
 ## How to use
 1. Login to your WonderCMS website.
