@@ -31,12 +31,13 @@ window.addEventListener('scroll', function(e){
 
 // Change style of navbar on scroll
 window.addEventListener('scroll', function() {
-    if(Number(height.replace(/[^0-9]/g,'')) == 0 && loggedIn) return;
+    var numHeight = Number(height.replace && height.replace(/[^0-9]/g,'') || height);
+    if(numHeight == 0 && loggedIn) return;
     var normal = "navbar navbar-default", classes = " sticky";
 
     var navbar = document.querySelector("nav");
-    if(document.body.scrollTop > window.innerHeight * Number(height.replace(/[^0-9]/g,'')) / 100 - 100
-    || document.documentElement.scrollTop > window.innerHeight * Number(height.replace(/[^0-9]/g,'')) / 100 - 100) {
+    if(document.body.scrollTop > window.innerHeight * numHeight / 100 - 100
+    || document.documentElement.scrollTop > window.innerHeight * numHeight / 100 - 100) {
         navbar.className = normal + classes;
     } else {
         navbar.className = normal;
@@ -71,3 +72,28 @@ $('a[href*="#"]').not('[href="#"]').not('[href="#0"]')
 
     }
 });
+
+window.fieldSaveParallax = (fieldname, content, target, menu, visibility = null) => {
+  document.getElementById('save').style.display = 'block';
+
+  const dataRaw = {
+    fieldname: fieldname,
+    token: token,
+    content: encodeURIComponent(content),
+    target: target,
+    menu: menu,
+    visibility: visibility
+  };
+  const data = Object.keys(dataRaw).map(function (key, index) {
+    return [key, dataRaw[key]].join('=');
+  }).join('&');
+
+  // Send request
+  const request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    setTimeout(() => window.location.reload(), 50);
+  };
+  request.open('POST', '', false);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+  request.send(data);
+};

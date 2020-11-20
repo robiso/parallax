@@ -88,7 +88,7 @@ function alterAdmin($args) {
 
     $input = $doc->createElement("select");
     $input->setAttribute("class", "form-control");
-    $input->setAttribute("onchange", "fieldSave('background',this.value,'pages');");
+    $input->setAttribute("onchange", "fieldSaveParallax('background',this.value,'pages');");
     $input->setAttribute("name", "backgroundSelect");
 
 	$option = $doc->createElement("option");
@@ -133,7 +133,7 @@ function alterAdmin($args) {
 
     $input = $doc->createElement("select");
     $input->setAttribute("class", "form-control");
-    $input->setAttribute("onchange", "fieldSave('parallax',this.value,'pages');");
+    $input->setAttribute("onchange", "fieldSaveParallax('parallax',this.value,'pages');");
     $input->setAttribute("name", "parallaxSelect");
 
     $types = ["Dual", "Parallax", "Inverse", "Scroll", "None"];
