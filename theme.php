@@ -20,8 +20,8 @@ if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 
     $height = isset($Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight) ? $Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight : 100;
 
-    $heading = getEditableArea("heading", $Wcms->page('title'));
-    $subtitle = getEditableArea("subtitle", "");
+    // $heading = getEditableArea("heading", $Wcms->page('title'));
+    // $subtitle = getEditableArea("subtitle", "");
 
     $type = isset($Wcms->get('pages', $Wcms->currentPage)->parallax) ? $Wcms->get('pages', $Wcms->currentPage)->parallax : "dual";
     $readMore = isset($Wcms->get('pages', $Wcms->currentPage)->readMoreText) ? $Wcms->get('pages', $Wcms->currentPage)->readMoreText : "Read more";
@@ -35,6 +35,7 @@ if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 -->
 <html lang="en">
 <head>
+	
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,7 +50,7 @@ if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="<?= $Wcms->asset('css/style.css') ?>">
-	
+
 	<?php /* Translate php to some javascript variables and css rules. Please don't replicate this. */ ?>
 	<script>var page=<?=json_encode($Wcms->currentPage)?>,heading=<?=json_encode($heading)?>,subtitle=<?=json_encode($subtitle)?>,image=<?=json_encode($page_image)?>,height=<?=json_encode($height)?>,type=<?=json_encode($type)?>,loggedIn=<?=json_encode($Wcms->loggedIn)?>;</script>
 	<style>.parallax{height:<?=htmlentities($height)?>vh;}</style>
