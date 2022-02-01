@@ -127,10 +127,10 @@ if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 		</div>
 	</footer>
 
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 	<?=$Wcms->js()?>
-    <script src="<?=$Wcms->asset('js/script.js')?>"></script>
+
+	<script src="<?=$Wcms->asset('js/script.js')?>"></script>
 
     <?php /* Add some overwrites for pages with different parallax types. */ ?>
     <?php if($type == "scroll") echo "<style>.parallax{background-attachment:fixed;}</style>"; ?>
