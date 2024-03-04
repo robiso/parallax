@@ -28,7 +28,7 @@ function alterAdmin($args) {
     if(!$Wcms->loggedIn) return $args;
 
     $doc = new DOMDocument();
-    @$doc->loadHTML($args[0]);
+    @$doc->loadHTML('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $args[0]);
 
     /* Input element for header height */
 
@@ -153,7 +153,7 @@ function alterAdmin($args) {
 
     $doc->getElementById("currentPage")->insertBefore($form_group, $doc->getElementById("currentPage")->lastChild->previousSibling->previousSibling);
 
-    $args[0] = preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $doc->saveHTML());
+    $args[0] = urldecode( preg_replace('~<(?:!DOCTYPE|/?(?:html|body))[^>]*>\s*~i', '', $doc->saveHTML() ));
     return $args;
 }
 $Wcms->addListener('settings', 'alterAdmin');
