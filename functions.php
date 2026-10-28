@@ -28,7 +28,7 @@ function alterAdmin($args) {
     if(!$Wcms->loggedIn) return $args;
 
     $doc = new DOMDocument();
-    @$doc->loadHTML($args[0]);
+    @$doc->loadHTML('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $args[0]);
 
     /* Input element for header height */
 
