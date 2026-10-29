@@ -45,7 +45,7 @@ function alterAdmin($args) {
     $input->setAttribute("class", "editText");
     $input->setAttribute("data-target", "pages");
     $input->setAttribute("id", "themeHeaderHeight");
-    $input->nodeValue = isset($Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight) ? $Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight : "100";
+    $input->nodeValue = isset($Wcms->getCurrentPageData()->themeHeaderHeight) ? $Wcms->getCurrentPageData()->themeHeaderHeight : "100";
 
     $wrapper->appendChild($input);
 
@@ -66,7 +66,7 @@ function alterAdmin($args) {
     $input->setAttribute("class", "editText");
     $input->setAttribute("data-target", "pages");
     $input->setAttribute("id", "readMoreText");
-    $input->nodeValue = isset($Wcms->get('pages', $Wcms->currentPage)->readMoreText) ? $Wcms->get('pages', $Wcms->currentPage)->readMoreText : "Read more";
+    $input->nodeValue = isset($Wcms->getCurrentPageData()->readMoreText) ? $Wcms->getCurrentPageData()->readMoreText : "Read more";
 
     $wrapper->appendChild($input);
 
@@ -106,7 +106,7 @@ function alterAdmin($args) {
 	    $option->setAttribute("value", $file);
 		$option->nodeValue = $file;
 
-		if(isset($Wcms->get("pages", $Wcms->currentPage)->background) && $Wcms->get("pages", $Wcms->currentPage)->background == $file)
+		if(isset($Wcms->getCurrentPageData()->background) && $Wcms->getCurrentPageData()->background == $file)
 			$option->setAttribute("selected", "selected");
 
 		$input->appendChild($option);
@@ -142,7 +142,7 @@ function alterAdmin($args) {
     	$option->setAttribute("value", strtolower($type));
     	$option->nodeValue = $type;
 
-        if(isset($Wcms->get("pages", $Wcms->currentPage)->parallax) && $Wcms->get("pages", $Wcms->currentPage)->parallax == strtolower($type))
+        if(isset($Wcms->getCurrentPageData()->parallax) && $Wcms->getCurrentPageData()->parallax == strtolower($type))
 			$option->setAttribute("selected", "selected");
 
     	$input->appendChild($option);
