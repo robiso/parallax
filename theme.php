@@ -13,10 +13,9 @@ $readMore = "";
 if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 	$subtitle = $Wcms->page('content');
 } else {
-	// Read the page's settings once, through the page tree. $Wcms->get('pages', $Wcms->currentPage) creates and saves a
-	// top-level key it does not find: on a 404 that wrote an empty page for every unknown URL (3.2.4), and on a subpage it
-	// wrote a top-level copy of the subpage's slug (3.2.5). getCurrentPageData() exists since 3.4.3 and returns null on a 404.
-	$pageData = $Wcms->getCurrentPageData() ?? new stdClass();
+	// Read the page's settings once, without writing (see parallaxPageData() in functions.php: $Wcms->get() created and saved
+	// an empty page on a 404 in 3.2.4 and a top-level copy of a subpage's slug in 3.2.5; 3.2.6 fataled on cores before 3.2.0).
+	$pageData = parallaxPageData();
 
 	// Check if image for this page exisis
 	if(isset($pageData->background) && $pageData->background != "") {

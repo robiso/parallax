@@ -1,6 +1,22 @@
 <?php
 global $Wcms;
 
+/**
+ * The current page's settings, read without writing: $Wcms->get('pages', ...) creates and saves a key it does not find
+ * (an empty page on a 404, a top-level copy of a subpage's slug). getCurrentPageData() walks the page tree and returns
+ * null on a 404, but exists only since core 3.2.0, so older cores get the next best read instead of a fatal (3.2.6 broke them).
+ */
+function parallaxPageData() {
+    global $Wcms;
+    if (method_exists($Wcms, 'getCurrentPageData')) {
+        return $Wcms->getCurrentPageData() ?? new stdClass();
+    }
+    if (isset($Wcms->currentPageExists) && !$Wcms->currentPageExists) { // 3.1.x: no write on a 404
+        return new stdClass();
+    }
+    return $Wcms->get('pages', $Wcms->currentPage); // 3.0.x: the 3.2.4 read
+}
+
 function getEditableArea($name, $default) {
     global $Wcms;
 	$block = $Wcms->currentPage . "_" . $name;
@@ -45,7 +61,7 @@ function alterAdmin($args) {
     $input->setAttribute("class", "editText");
     $input->setAttribute("data-target", "pages");
     $input->setAttribute("id", "themeHeaderHeight");
-    $input->nodeValue = isset($Wcms->getCurrentPageData()->themeHeaderHeight) ? $Wcms->getCurrentPageData()->themeHeaderHeight : "100";
+    $input->nodeValue = isset(parallaxPageData()->themeHeaderHeight) ? parallaxPageData()->themeHeaderHeight : "100";
 
     $wrapper->appendChild($input);
 
@@ -66,7 +82,7 @@ function alterAdmin($args) {
     $input->setAttribute("class", "editText");
     $input->setAttribute("data-target", "pages");
     $input->setAttribute("id", "readMoreText");
-    $input->nodeValue = isset($Wcms->getCurrentPageData()->readMoreText) ? $Wcms->getCurrentPageData()->readMoreText : "Read more";
+    $input->nodeValue = isset(parallaxPageData()->readMoreText) ? parallaxPageData()->readMoreText : "Read more";
 
     $wrapper->appendChild($input);
 
@@ -106,7 +122,7 @@ function alterAdmin($args) {
 	    $option->setAttribute("value", $file);
 		$option->nodeValue = $file;
 
-		if(isset($Wcms->getCurrentPageData()->background) && $Wcms->getCurrentPageData()->background == $file)
+		if(isset(parallaxPageData()->background) && parallaxPageData()->background == $file)
 			$option->setAttribute("selected", "selected");
 
 		$input->appendChild($option);
@@ -142,7 +158,7 @@ function alterAdmin($args) {
     	$option->setAttribute("value", strtolower($type));
     	$option->nodeValue = $type;
 
-        if(isset($Wcms->getCurrentPageData()->parallax) && $Wcms->getCurrentPageData()->parallax == strtolower($type))
+        if(isset(parallaxPageData()->parallax) && parallaxPageData()->parallax == strtolower($type))
 			$option->setAttribute("selected", "selected");
 
     	$input->appendChild($option);
