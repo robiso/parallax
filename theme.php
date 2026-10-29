@@ -13,18 +13,22 @@ $readMore = "";
 if($Wcms->currentPage == $Wcms->get('config', 'login')) {
 	$subtitle = $Wcms->page('content');
 } else {
+	// Read the page's settings once. $Wcms->get() creates and saves a key it does not find, so on a 404 it wrote an empty
+	// page into database.js for every unknown URL a visitor or crawler requested (and that URL then answered 200).
+	$pageData = $Wcms->currentPageExists ? $Wcms->get("pages", $Wcms->currentPage) : new stdClass();
+
 	// Check if image for this page exisis
-	if(isset($Wcms->get("pages", $Wcms->currentPage)->background) && $Wcms->get("pages", $Wcms->currentPage)->background != "") {
-		$page_image = "data/files/" . $Wcms->get("pages", $Wcms->currentPage)->background;
+	if(isset($pageData->background) && $pageData->background != "") {
+		$page_image = "data/files/" . $pageData->background;
 	}
 
-	$height = isset($Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight) ? $Wcms->get('pages', $Wcms->currentPage)->themeHeaderHeight : 100;
+	$height = isset($pageData->themeHeaderHeight) ? $pageData->themeHeaderHeight : 100;
 
 	// $heading = getEditableArea("heading", $Wcms->page('title'));
 	// $subtitle = getEditableArea("subtitle", "");
 
-	$type = isset($Wcms->get('pages', $Wcms->currentPage)->parallax) ? $Wcms->get('pages', $Wcms->currentPage)->parallax : "dual";
-	$readMore = isset($Wcms->get('pages', $Wcms->currentPage)->readMoreText) ? $Wcms->get('pages', $Wcms->currentPage)->readMoreText : "Read more";
+	$type = isset($pageData->parallax) ? $pageData->parallax : "dual";
+	$readMore = isset($pageData->readMoreText) ? $pageData->readMoreText : "Read more";
 }
 
 ?>
